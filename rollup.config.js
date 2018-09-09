@@ -31,4 +31,17 @@ export default [
             include: 'src/**',
         },
     },
+    {
+        input: 'src/_main.js',
+        output: {
+            file: 'index.js',
+            format: 'cjs',
+        },
+        plugins: [
+            babel({exclude: 'node_modules/**'}),
+        ],
+        watch: {
+            include: 'src/**',
+        },
+    },
 ];

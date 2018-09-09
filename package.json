@@ -1,7 +1,7 @@
 {
   "name": "dominoob",
   "version": "0.1.0",
-  "main": "src/_main.js",
+  "main": "index.js",
   "author": "John Romeral",
   "license": "MIT",
   "repository": "git+https://github.com:jugheadeatsalot/dominoob.git",
