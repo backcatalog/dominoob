@@ -2,6 +2,22 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+}
+
+if (!Element.prototype.closest) {
+    Element.prototype.closest = function (s) {
+        var el = this;
+
+        do {
+            if (el.matches(s)) return el;
+            el = el.parentElement || el.parentNode;
+        } while (el !== null && el.nodeType === 1);
+        return null;
+    };
+}
+
 function addClasses(element, classes) {
     var elClasses = element.className.trim();
     var elClassesArray = elClasses ? elClasses.split(' ') : [];
@@ -43,18 +59,6 @@ function forEach(array, callback, _this) {
     }
 }
 
-function getClosest(element, filter) {
-    if (typeof filter === 'undefined') filter = '*';
-
-    var closest = element.parentNode;
-
-    while (!matches(closest, filter)) {
-        closest = closest.parentNode;
-    }
-
-    return closest;
-}
-
 function getParents(element, filter) {
     if (typeof filter === 'undefined') filter = '*';
 
@@ -63,7 +67,7 @@ function getParents(element, filter) {
     var parent = element.parentNode;
 
     while (parent !== document) {
-        if (matches(parent, filter)) parents.push(parent);
+        if (parent.matches(filter)) parents.push(parent);
 
         parent = parent.parentNode;
     }
@@ -73,18 +77,6 @@ function getParents(element, filter) {
 
 function isVisible(element) {
     return !!element && !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
-}
-
-function matches(element, selector) {
-    if (Element.prototype.matches) return element.matches(selector);
-
-    var matches = document.querySelectorAll(selector);
-
-    var i = matches.length;
-
-    while (--i >= 0 && matches.item(i) !== element) {}
-
-    return i > -1;
 }
 
 function merge(object1, object2) {
@@ -135,10 +127,8 @@ exports.animationEndEvent = animationEndEvent;
 exports.dedupe = dedupe;
 exports.differ = differ;
 exports.forEach = forEach;
-exports.getClosest = getClosest;
 exports.getParents = getParents;
 exports.isVisible = isVisible;
-exports.matches = matches;
 exports.merge = merge;
 exports.off = off;
 exports.on = on;

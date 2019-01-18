@@ -1,3 +1,5 @@
+import './_polyfills';
+
 export function addClasses(element, classes) {
     const elClasses = element.className.trim();
     const elClassesArray = (elClasses) ? elClasses.split(' ') : [];
@@ -33,18 +35,6 @@ export function forEach(array, callback, _this) {
     for(let i = 0; i < array.length; i++) callback.call(_this, array[i], i);
 }
 
-export function getClosest(element, filter) {
-    if(typeof filter === 'undefined') filter = '*';
-
-    let closest = element.parentNode;
-
-    while(!matches(closest, filter)) {
-        closest = closest.parentNode;
-    }
-
-    return closest;
-}
-
 export function getParents(element, filter) {
     if(typeof filter === 'undefined') filter = '*';
 
@@ -53,7 +43,7 @@ export function getParents(element, filter) {
     let parent = element.parentNode;
 
     while(parent !== document) {
-        if(matches(parent, filter)) parents.push(parent);
+        if(parent.matches(filter)) parents.push(parent);
 
         parent = parent.parentNode;
     }
@@ -66,18 +56,6 @@ export function isVisible(element) {
         !!element
         && !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length)
     );
-}
-
-export function matches(element, selector) {
-    if(Element.prototype.matches) return element.matches(selector);
-
-    const matches = document.querySelectorAll(selector);
-
-    let i = matches.length;
-
-    while(--i >= 0 && matches.item(i) !== element) {}
-
-    return i > -1;
 }
 
 export function merge(object1, object2) {
