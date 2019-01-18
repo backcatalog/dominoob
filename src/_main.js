@@ -61,6 +61,13 @@ export function getParents(element, filter) {
     return parents;
 }
 
+export function isVisible(element) {
+    return (
+        !!element
+        && !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length)
+    );
+}
+
 export function matches(element, selector) {
     if(Element.prototype.matches) return element.matches(selector);
 

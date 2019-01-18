@@ -70,6 +70,10 @@ var dominoob = (function (exports) {
         return parents;
     }
 
+    function isVisible(element) {
+        return !!element && !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+    }
+
     function matches(element, selector) {
         if (Element.prototype.matches) return element.matches(selector);
 
@@ -132,6 +136,7 @@ var dominoob = (function (exports) {
     exports.forEach = forEach;
     exports.getClosest = getClosest;
     exports.getParents = getParents;
+    exports.isVisible = isVisible;
     exports.matches = matches;
     exports.merge = merge;
     exports.off = off;
