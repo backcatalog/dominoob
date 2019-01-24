@@ -28,7 +28,7 @@ export function dedupe(array) {
 }
 
 export function differ(haystack, needles) {
-    return haystack.filter(value => !needles.includes(value));
+    return haystack.filter(value => needles.indexOf(value) < 0);
 }
 
 export function forEach(array, callback, _this) {

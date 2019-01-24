@@ -49,7 +49,7 @@ function dedupe(array) {
 
 function differ(haystack, needles) {
     return haystack.filter(function (value) {
-        return !needles.includes(value);
+        return needles.indexOf(value) < 0;
     });
 }
 
